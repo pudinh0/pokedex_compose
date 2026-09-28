@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">pokedex_compose</string>
+    <string name="numero_dig">#031</string>
+    <string name="nombre_dig">Patamon</string>
+    <string name="altura_dig">0,4M</string>
+    <string name="peso_dig">3Kg</string>
+    <string name="descripcion_dig">Su nombre viene de la palabra japonesa patapata (パタパタ), una onomatopeya que designa el sonido del aleteo.</string>
+    <string name="habilidad_dig">Burbuja de aire</string>
+    <string name="dig_anterior">tokomon #030</string>
+    <string name="dig_siguiente">Angemon #032</string>
+</resources>
