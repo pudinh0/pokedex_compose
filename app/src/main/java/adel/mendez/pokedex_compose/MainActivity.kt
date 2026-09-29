@@ -24,7 +24,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
@@ -94,6 +96,7 @@ fun Caracteristicas(modifier: Modifier = Modifier){
             .background(Color(0xFFFFFFFF))
             .padding(24.dp)
             .fillMaxHeight(0.5f)
+            .clip(RoundedCornerShape(topStart = 32.dp, topEnd = 32.dp))
 
     ){
         Box(
@@ -123,7 +126,7 @@ fun Caracteristicas(modifier: Modifier = Modifier){
             StatItem(label = "Peso", value = stringResource(id = R.string.peso_dig))
         }
 
-        Spacer(modifier = Modifier.height(24.dp))
+        Spacer(modifier = Modifier.height(50.dp))
 
         Text(
             text = stringResource(id = R.string.descripcion_dig),
@@ -152,7 +155,7 @@ fun EvolutionSection(modifier: Modifier = Modifier) {
             .background(Color(0xFFFFFFFF))
             .padding(24.dp)
             .fillMaxHeight(0.2f),
-        horizontalArrangement = Arrangement.SpaceBetween
+            horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Text(text = stringResource(id = R.string.dig_anterior), fontWeight = FontWeight.Bold, fontSize = 14.sp)
         Text(text = stringResource(id = R.string.dig_siguiente), fontWeight = FontWeight.Bold, fontSize = 14.sp)
@@ -183,7 +186,7 @@ fun GreetingPreview() {
             EvolutionSection(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .weight(0.15f)
+                    .weight(0.10f)
             )
         }
 
@@ -203,6 +206,25 @@ fun GreetingPreview() {
                 .size(250.dp)
                 .align(Alignment.TopCenter)
                 .offset(y = 75.dp)
+        )
+
+
+        Image(
+            painter = painterResource(id = R.drawable.tokomon_pic),
+            contentDescription = "tokomon flotando",
+            modifier = Modifier
+                .size(100.dp)
+                .align(Alignment.TopCenter)
+                .offset(x= -120.dp, y = 650.dp)
+        )
+
+        Image(
+            painter = painterResource(id = R.drawable.angemon_pic),
+            contentDescription = "angemon flotando",
+            modifier = Modifier
+                .size(100.dp)
+                .align(Alignment.TopCenter)
+                .offset(x= 120.dp, y = 650.dp)
         )
 
     }
