@@ -14,7 +14,53 @@ val jigglypuff =  Pokemon(
     image = R.drawable.jigglypuff
 )
 
+val favoriteList= listOf(
+    Pokemon(
+        name = "Squirtle",
+        num = 7,
+        type = "Water",
+        description = "After birth, its back swells and hardens into a shell.",
+        height = 0.5f,
+        weight = 9.0f,
+        fav = false,
+        ability = "Torrent",
+        image = R.drawable.squirtle
+    ),
+    Pokemon(
+        name = "Pikachu",
+        num = 25,
+        type = "Electric",
+        description = "When several of these Pokémon gather, their electricity could build and cause lightning storms.",
+        height = 0.4f,
+        weight = 6.0f,
+        fav = true,
+        ability = "Static",
+        image = R.drawable.pikachu
+    ),
+    Pokemon(
+        name = "Gengar",
+        num = 94,
+        type = "Ghost/Poison",
+        description = "Under a full moon, this Pokémon likes to mimic the shadows of people and laugh at their fright.",
+        height = 1.5f,
+        weight = 40.5f,
+        fav = true,
+        ability = "Cursed Body",
+        image = R.drawable.gengar
+    ),
+    Pokemon(
+        name = "Snorlax",
+        num = 143,
+        type = "Normal",
+        description = "Its stomach is said to be so strong that it can even eat moldy or rotten food.",
+        height = 2.1f,
+        weight = 460.0f,
+        fav = false,
+        ability = "Immunity",
+        image = R.drawable.snorlax
+    )
 
+)
 val pokemonList = listOf(
     Pokemon(
         name = "Bulbasaur",

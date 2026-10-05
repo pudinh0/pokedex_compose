@@ -1,5 +1,7 @@
 package adel.mendez.pokedex_compose
 
+import adel.mendez.pokedex_compose.components.MenuPokedex
+import adel.mendez.pokedex_compose.data.pokemonList
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -12,6 +14,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import adel.mendez.pokedex_compose.ui.theme.Pokedex_composeTheme
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.ui.unit.dp
 
 class PokedexList : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,9 +24,9 @@ class PokedexList : ComponentActivity() {
         setContent {
             Pokedex_composeTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting2(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
+                    MenuPokedex(
+                        pokemonList = pokemonList,
+                        innerPadding = innerPadding
                     )
                 }
             }
@@ -30,18 +34,11 @@ class PokedexList : ComponentActivity() {
     }
 }
 
-@Composable
-fun Greeting2(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
 
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview2() {
     Pokedex_composeTheme {
-        Greeting2("Android")
+        MenuPokedex(pokemonList = pokemonList, innerPadding = PaddingValues(5.dp))
     }
 }
