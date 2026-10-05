@@ -1,5 +1,7 @@
 package adel.mendez.pokedex_compose
 
+import adel.mendez.pokedex_compose.components.MenuPokedex
+import adel.mendez.pokedex_compose.data.pokemonList
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -20,9 +22,9 @@ class PokedexList : ComponentActivity() {
         setContent {
             Pokedex_composeTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting2(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
+                    MenuPokedex(
+                        pokemonList = pokemonList,
+                        innerPadding = innerPadding
                     )
                 }
             }

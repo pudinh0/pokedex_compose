@@ -11,9 +11,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 
-class MenuPokedex {
 
-    @SuppressLint("NotConstructor")
+
     @Composable
     fun MenuPokedex(pokemonList: List<Pokemon>, innerPadding: PaddingValues){
         LazyColumn() {
@@ -34,4 +33,3 @@ class MenuPokedex {
     }
 
 
-}
