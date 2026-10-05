@@ -105,7 +105,7 @@ fun Caracteristicas(modifier: Modifier = Modifier){
                 .padding(horizontal = 8.dp, vertical = 4.dp)
                 .align(Alignment.CenterHorizontally)
         ){
-            Text(text = "DATA", color = Color.White, fontSize = 12.sp, fontWeight = FontWeight.Bold)
+            Text(text = stringResource(id = R.string.atributo), color = Color.White, fontSize = 12.sp, fontWeight = FontWeight.Bold)
         }
         Spacer(modifier = Modifier.height(16.dp))
 

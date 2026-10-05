@@ -8,4 +8,6 @@
     <string name="habilidad_dig">Burbuja de aire</string>
     <string name="dig_anterior">tokomon #030</string>
     <string name="dig_siguiente">Angemon #032</string>
+    <string name="title_activity_pokedex_list">PokedexList</string>
+    <string name="atributo">DATA</string>
 </resources>
