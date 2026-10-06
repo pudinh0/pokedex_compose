@@ -3,6 +3,8 @@ package adel.mendez.pokedex_compose.screens
 import adel.mendez.pokedex_compose.components.FavoritePokemon
 import adel.mendez.pokedex_compose.components.PokemonGrid
 import adel.mendez.pokedex_compose.data.favoriteList
+import adel.mendez.pokedex_compose.data.getAllPokemons
+import adel.mendez.pokedex_compose.data.getFavoritePokemons
 import adel.mendez.pokedex_compose.data.pokemonList
 import adel.mendez.pokedex_compose.domain.Pokemon
 import adel.mendez.pokedex_compose.ui.theme.Pokedex_composeTheme
@@ -24,7 +26,7 @@ import androidx.compose.ui.unit.dp
 
 
 @Composable
-fun MenuPokedexScreen(innerPadding: PaddingValues, favList: List<Pokemon>, allPkm:List<Pokemon>){
+fun MenuPokedexScreen(innerPadding: PaddingValues){
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -42,7 +44,8 @@ fun MenuPokedexScreen(innerPadding: PaddingValues, favList: List<Pokemon>, allPk
         LazyRow(
             horizontalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-            items(favList) { pokemon ->
+            //cambiar por el getfavorites
+            items(getFavoritePokemons()) { pokemon ->
                 FavoritePokemon(pokemon = pokemon)
             }
         }
@@ -55,7 +58,7 @@ fun MenuPokedexScreen(innerPadding: PaddingValues, favList: List<Pokemon>, allPk
         )
 
         PokemonGrid(
-            pokemonList = pokemonList,
+            getAllPokemons()
         )
     }
 
@@ -66,9 +69,7 @@ fun MenuPokedexScreen(innerPadding: PaddingValues, favList: List<Pokemon>, allPk
 fun MenuPokedexScreenPreview() {
     Pokedex_composeTheme {
         MenuPokedexScreen(
-            innerPadding = PaddingValues(0.dp),
-            favList = favoriteList,
-            allPkm = pokemonList
+            innerPadding = PaddingValues(0.dp)
         )
     }
 }

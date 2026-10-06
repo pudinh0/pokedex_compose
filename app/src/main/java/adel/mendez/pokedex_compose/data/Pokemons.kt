@@ -162,3 +162,21 @@ val pokemonList = listOf(
         image = R.drawable.mimikyu
     )
 )
+
+fun getFavoritePokemons():List<Pokemon>{
+    return pokemonList.filter{
+        it.fav
+    }
+}
+fun getAllPokemons():List<Pokemon>{
+    return pokemonList
+}
+
+fun getPokemonByNumber(pokemonNumber:Int): Pokemon{
+    //if(pokemonNumber == -1){
+      //  return jigglypuff
+    //}
+    return pokemonList.filter {
+        it.num == pokemonNumber
+    }.first()
+}

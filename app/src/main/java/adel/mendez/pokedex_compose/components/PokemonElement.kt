@@ -9,6 +9,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -142,8 +143,14 @@ fun PokemonCell(pokemon: Pokemon){
                         colors.first
                     )
                 )
+
             )
-        ).padding(5.dp),
+
+        ).padding(5.dp)
+            //falto agregar la funcion de navigate on detail en cada parte,
+        // esa funcion se encarga de la navegacion y pasa el number/int del pokemon a la siguiente pantalla
+           // .clickable(true, onClick = {onNavigateToDetail(pokemon.num)})
+        ,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Box(
