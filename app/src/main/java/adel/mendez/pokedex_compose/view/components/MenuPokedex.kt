@@ -1,7 +1,7 @@
-package adel.mendez.pokedex_compose.components
+package adel.mendez.pokedex_compose.view.components
 
-import adel.mendez.pokedex_compose.data.favoriteList
-import adel.mendez.pokedex_compose.domain.Pokemon
+import adel.mendez.pokedex_compose.model.data.favoriteList
+import adel.mendez.pokedex_compose.model.domain.Pokemon
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding

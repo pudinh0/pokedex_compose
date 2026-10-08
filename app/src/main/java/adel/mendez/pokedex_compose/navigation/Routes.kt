@@ -1,10 +1,14 @@
 package adel.mendez.pokedex_compose.navigation
 
-import adel.mendez.pokedex_compose.domain.Pokemon
+import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
 
 @Serializable
-object PokemonList
+object PokemonList{
+    fun serializer(): KSerializer<PokemonList>{}
+}
 
 @Serializable
-data class PokemonDetail(val pokemon: Int)
+data class PokemonDetail(val pokemon: Int){
+    fun serializer(): KSerializer<PokemonDetail>{}
+}

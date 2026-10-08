@@ -1,4 +1,4 @@
-package adel.mendez.pokedex_compose.components
+package adel.mendez.pokedex_compose.view.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement

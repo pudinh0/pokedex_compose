@@ -1,7 +1,6 @@
-package adel.mendez.pokedex_compose.screens
+package adel.mendez.pokedex_compose.view.screens
 
-import adel.mendez.pokedex_compose.data.getPokemonByNumber
-import adel.mendez.pokedex_compose.domain.Pokemon
+import adel.mendez.pokedex_compose.model.data.getPokemonByNumber
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues

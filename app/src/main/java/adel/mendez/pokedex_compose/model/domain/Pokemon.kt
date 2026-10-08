@@ -1,6 +1,4 @@
-package adel.mendez.pokedex_compose.domain
-
-import adel.mendez.pokedex_compose.data.pokemonList
+package adel.mendez.pokedex_compose.model.domain
 
 data class Pokemon(
     val name : String,

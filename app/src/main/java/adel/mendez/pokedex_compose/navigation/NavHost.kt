@@ -1,27 +1,28 @@
 package adel.mendez.pokedex_compose.navigation
 
-import adel.mendez.pokedex_compose.screens.MenuPokedexScreen
-import adel.mendez.pokedex_compose.screens.PokemonDeteailScreen
+import adel.mendez.pokedex_compose.view.screens.MenuPokedexScreen
+import adel.mendez.pokedex_compose.view.screens.PokemonDeteailScreen
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 
 @Composable
-fun MyApp(innerPadding: PaddingValues){
+fun MyApp(innerPadding: PaddingValues) {
     val navController = rememberNavController()
 
-    NavHost(navController, startDestination = PokemonList){
-        composable<PokemonList>{
-            MenuPokedexScreen(innerPadding, {pokemon -> navController.navigate(PokemonDetail(pokemon))})
+    NavHost(navController, startDestination = PokemonList) {
+        composable<PokemonList> {
+            MenuPokedexScreen(innerPadding,
+                {pokemon ->
+                    navController.navigate(PokemonDetail(pokemon))
+                })
         }
 
-        composable<PokemonDetail>(){
+        composable<PokemonDetail> {
             val pokemon = it.arguments?.getInt("pokemon") ?: -1
             PokemonDeteailScreen(innerPadding, pokemon)
         }
     }
-
 }

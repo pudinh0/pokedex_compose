@@ -1,6 +1,6 @@
-package adel.mendez.pokedex_compose.data
+package adel.mendez.pokedex_compose.model.data
 
-import adel.mendez.pokedex_compose.domain.Pokemon
+import adel.mendez.pokedex_compose.model.domain.Pokemon
 import adel.mendez.pokedex_compose.R
 val jigglypuff =  Pokemon(
     name = "Jigglypuff",
