@@ -1,7 +1,7 @@
 package adel.mendez.pokedex_compose.navigation
 
 import adel.mendez.pokedex_compose.view.screens.MenuPokedexScreen
-import adel.mendez.pokedex_compose.view.screens.PokemonDeteailScreen
+import adel.mendez.pokedex_compose.view.screens.PokemonDetailScreen
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
@@ -22,7 +22,7 @@ fun MyApp(innerPadding: PaddingValues) {
 
         composable<PokemonDetail> {
             val pokemon = it.arguments?.getInt("pokemon") ?: -1
-            PokemonDeteailScreen(innerPadding, pokemon)
+            PokemonDetailScreen(innerPadding, pokemon)
         }
     }
 }

@@ -17,8 +17,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun MenuPokedex(pokemonList: List<Pokemon>, innerPadding: PaddingValues) {
-    LazyColumn(modifier = Modifier.padding(innerPadding)) {
+fun MenuPokedex(pokemonList: List<Pokemon>, onNavigateToDetail: (id:Int) -> Unit) {
+    LazyColumn() {
         items(pokemonList) { pokemon ->
             PokemonRow(pokemon)
         }
@@ -26,7 +26,7 @@ fun MenuPokedex(pokemonList: List<Pokemon>, innerPadding: PaddingValues) {
 }
 
 @Composable
-fun PokemonGrid(pokemonList: List<Pokemon>){
+fun PokemonGrid(pokemonList: List<Pokemon>, onNavigateToDetail: (id:Int) -> Unit){
     LazyVerticalGrid(
         GridCells.Fixed(3),
         contentPadding = PaddingValues(5.dp, 20.dp),
@@ -40,7 +40,7 @@ fun PokemonGrid(pokemonList: List<Pokemon>){
 }
 
 @Composable
-fun FavoritesRow(favoriteList: List<Pokemon>){
+fun FavoritesRow(favoriteList: List<Pokemon>, onNavigateToDetail: (id:Int) -> Unit){
     LazyRow(
         horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
@@ -55,5 +55,5 @@ fun FavoritesRow(favoriteList: List<Pokemon>){
 fun previewMenuPokedex() {
     //MenuPokedex(pokemonList = pokemonList, innerPadding = PaddingValues(5.dp))
     //FavoritesRow(favoriteList = favoriteList)
-    PokemonGrid(favoriteList)
+    //PokemonGrid(favoriteList)
 }

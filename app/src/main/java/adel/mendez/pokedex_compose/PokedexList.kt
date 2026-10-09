@@ -39,6 +39,6 @@ class PokedexList : ComponentActivity() {
 @Composable
 fun GreetingPreview2() {
     Pokedex_composeTheme {
-        MenuPokedex(pokemonList = pokemonList, innerPadding = PaddingValues(5.dp))
+        MenuPokedex(pokemonList = pokemonList,{})
     }
 }

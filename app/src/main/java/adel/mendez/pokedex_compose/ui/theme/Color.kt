@@ -33,3 +33,8 @@ val Dragon = Color(0xFF3949AB)
 val Dark = Color(0xFF131310)
 val Ice = Color(0xFF9FA8DA)
 val Fairy = Color(0xFFEF9A9A)
+
+val Green = Color(0xFF81CA85)
+val LightGreen = Color(0xFFCCFFCE)
+val Blue = Color(0xFF4D92D2)
+val LightBlue = Color(0xFFa5CEFD)
