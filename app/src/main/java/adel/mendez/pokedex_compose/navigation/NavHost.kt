@@ -2,6 +2,7 @@ package adel.mendez.pokedex_compose.navigation
 
 import adel.mendez.pokedex_compose.view.screens.MenuPokedexScreen
 import adel.mendez.pokedex_compose.view.screens.PokemonDetailScreen
+import adel.mendez.pokedex_compose.view.screens.PokemonHuntScreen
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
@@ -17,12 +18,16 @@ fun MyApp(innerPadding: PaddingValues) {
             MenuPokedexScreen(innerPadding,
                 {pokemon ->
                     navController.navigate(PokemonDetail(pokemon))
-                })
+                }, onNavigateToHunt = {navController.navigate(PokemonHunt)})
         }
 
         composable<PokemonDetail> {
             val pokemon = it.arguments?.getInt("pokemon") ?: -1
             PokemonDetailScreen(innerPadding, pokemon)
+        }
+
+        composable<PokemonHunt>{
+            PokemonHuntScreen(innerPadding)
         }
     }
 }
