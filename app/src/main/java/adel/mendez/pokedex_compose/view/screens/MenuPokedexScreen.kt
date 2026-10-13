@@ -59,10 +59,10 @@ fun MenuPokedexScreen(innerPadding: PaddingValues, onNavigateToDetail: (pokemon:
         Row(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth().padding(15.dp)
         ){
             Text("Favoritre pookemons")
-            Button({onNavigateToHunt}) {
+            Button({onNavigateToHunt()}) {
                 Text("New Capture")
             }
         }
