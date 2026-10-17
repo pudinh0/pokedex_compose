@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.dp
 fun MenuPokedex(pokemonList: List<Pokemon>, onNavigateToDetail: (id:Int) -> Unit) {
     LazyColumn() {
         items(pokemonList) { pokemon ->
-            PokemonRow(pokemon)
+            PokemonRow(pokemon, onNavigateToDetail)
         }
     }
 }
@@ -34,7 +34,7 @@ fun PokemonGrid(pokemonList: List<Pokemon>, onNavigateToDetail: (id:Int) -> Unit
         horizontalArrangement = Arrangement.spacedBy(5.dp)) {
         items(pokemonList){
                 pokemon ->
-            PokemonCell(pokemon)
+            PokemonCell(pokemon, onNavigateToDetail)
         }
     }
 }
@@ -45,7 +45,7 @@ fun FavoritesRow(favoriteList: List<Pokemon>, onNavigateToDetail: (id:Int) -> Un
         horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         items(favoriteList) { pokemon ->
-            FavoritePokemon(pokemon)
+            FavoritePokemon(pokemon, onNavigateToDetail)
         }
     }
 }

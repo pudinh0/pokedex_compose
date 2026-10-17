@@ -23,11 +23,11 @@ fun MyApp(innerPadding: PaddingValues) {
 
         composable<PokemonDetail> {
             val pokemon = it.arguments?.getInt("pokemon") ?: -1
-            PokemonDetailScreen(innerPadding, pokemon)
+            PokemonDetailScreen(innerPadding, pokemon,onNavigateToDetail = {id-> navController.navigate(route= PokemonDetail(id))})
         }
 
         composable<PokemonHunt>{
-            PokemonHuntScreen(innerPadding)
+            PokemonHuntScreen(innerPadding, onNavigateToDetail = {id-> navController.navigate(route= PokemonDetail(id))})
         }
     }
 }

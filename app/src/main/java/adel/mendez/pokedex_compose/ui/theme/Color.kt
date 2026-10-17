@@ -18,7 +18,7 @@ val DarkGray = Color(0xFF1F1F1F)
 //typeColors
 val Electric = Color(0xFFFFEB3B)
 val Grass = Color(0xFF43A047)
-val Fire = Color(0xFFE74440)
+val Fire = Color(0xFAB93634)
 val Water = Color(0xFF00ACC1)
 val Normal = Color(0xFF5D5631)
 val Bug = Color(0xFF7CB342)

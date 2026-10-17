@@ -2,6 +2,8 @@ package adel.mendez.pokedex_compose.model.data
 
 import adel.mendez.pokedex_compose.model.domain.Pokemon
 import adel.mendez.pokedex_compose.R
+import androidx.compose.runtime.mutableStateListOf
+
 val jigglypuff =  Pokemon(
     name = "Jigglypuff",
     num = 39,
@@ -61,11 +63,11 @@ val favoriteList= listOf(
     )
 
 )
-val pokemonList = listOf(
+val pokemonList = mutableStateListOf<Pokemon>(
     Pokemon(
         name = "Bulbasaur",
         num = 1,
-        type = "Grass/Poison",
+        type = "Grass",
         description = "There is a plant seed on its back from the day this Pokémon is born.",
         height = 0.7f,
         weight = 6.9f,
@@ -109,7 +111,7 @@ val pokemonList = listOf(
     Pokemon(
         name = "Gengar",
         num = 94,
-        type = "Ghost/Poison",
+        type = "Ghost",
         description = "Under a full moon, this Pokémon likes to mimic the shadows of people and laugh at their fright.",
         height = 1.5f,
         weight = 40.5f,
@@ -142,7 +144,7 @@ val pokemonList = listOf(
     Pokemon(
         name = "Lucario",
         num = 448,
-        type = "Fighting/Steel",
+        type = "Fighting",
         description = "By catching the aura emanating from others, it can read their thoughts and movements.",
         height = 1.2f,
         weight = 54.0f,
@@ -153,7 +155,7 @@ val pokemonList = listOf(
     Pokemon(
         name = "Mimikyu",
         num = 778,
-        type = "Ghost/Fairy",
+        type = "Ghost",
         description = "Its actual appearance is unknown. A scholar who saw what was under its rag overwhelmed by terror and died.",
         height = 0.2f,
         weight = 0.7f,
@@ -172,11 +174,13 @@ fun getAllPokemons():List<Pokemon>{
     return pokemonList
 }
 
-fun getPokemonByNumber(pokemonNumber:Int): Pokemon{
-    //if(pokemonNumber == -1){
-      //  return jigglypuff
-    //}
-    return pokemonList.filter {
-        it.num == pokemonNumber
-    }.first()
+fun getPokemonByNumber(pokemonNumber: Int): Pokemon? {
+    return pokemonList.firstOrNull { it.num == pokemonNumber }
+}
+
+fun addPokemon(pokemonNumber: Int) {
+    val pokemon = getPokemonByNumber(pokemonNumber)
+    if (pokemon != null) {
+        pokemonList.add(pokemon)
+    }
 }

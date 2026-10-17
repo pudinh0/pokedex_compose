@@ -1,5 +1,6 @@
 package adel.mendez.pokedex_compose.view.screens
 
+import adel.mendez.pokedex_compose.ui.theme.Psych
 import adel.mendez.pokedex_compose.ui.theme.Purple40
 import adel.mendez.pokedex_compose.ui.theme.Typography
 import adel.mendez.pokedex_compose.view.components.PokemonRow
@@ -16,6 +17,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.Typography
 import androidx.compose.runtime.Composable
@@ -27,9 +29,11 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Composable
-fun PokemonHuntScreen(innerPadding: PaddingValues, viewModel: PokemonViewModel = viewModel()){
+fun PokemonHuntScreen(innerPadding: PaddingValues, viewModel: PokemonViewModel = viewModel(), onNavigateToDetail: (id:Int)-> Unit){
+    Spacer(Modifier.size(30.dp))
+
     Column(
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier.fillMaxWidth().padding(innerPadding),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Button(onClick = {viewModel.searchPokemon() }) {
@@ -39,17 +43,16 @@ fun PokemonHuntScreen(innerPadding: PaddingValues, viewModel: PokemonViewModel =
         Spacer(modifier = Modifier.size(18.dp))
 
         viewModel.wildPokemon?.let { pokemon ->
-            Text("Apareció un ${pokemon.name} salvaje!")
+            Text("Apareció un ${pokemon.name} salvaje!", style = MaterialTheme.typography.labelLarge, color = Purple40)
 
             Image(
                 painter = painterResource(pokemon.image),
-                contentDescription = "${pokemon.name}",
+                contentDescription = "${pokemon.name} image",
                 modifier = Modifier
-                    .height(90.dp)
-                    .padding(20.dp)
+                    .size(80.dp)
             )
 
-            Spacer(modifier = Modifier.size(20.dp))
+            Spacer(modifier = Modifier.size(15.dp))
 
             Button(onClick = { viewModel.capturePokemon() }) {
                 Text("Capturar a ${pokemon.name}!")
@@ -61,23 +64,24 @@ fun PokemonHuntScreen(innerPadding: PaddingValues, viewModel: PokemonViewModel =
 
         if(viewModel.captured){
             Text("Pokemon capturados", style = Typography.labelLarge, color = Purple40)
-
-
         }
 
         if(viewModel.gonedPokemon){
-            Text("se escapo")
+            Text("se escapo", style = Typography.labelLarge, color = Purple40)
             Thread.sleep(2000)
             viewModel.captured= false
         }
-    }
 
-    Spacer(Modifier.size(20.dp))
+        Spacer(Modifier.size(20.dp))
 
-    LazyColumn() {
-        items(viewModel.capturedPokemon){
-            pokemon ->
-            PokemonRow(pokemon)
+        Text("Pokemones capturados", style= MaterialTheme.typography.titleLarge, color= Psych)
+
+        LazyColumn() {
+            items(viewModel.capturedPokemon){
+                    pokemon ->
+                PokemonRow(pokemon, onNavigateToDetail)
+            }
+            
         }
     }
 }
@@ -86,5 +90,5 @@ fun PokemonHuntScreen(innerPadding: PaddingValues, viewModel: PokemonViewModel =
 @Composable
 
 fun previewPokemonHuntScreen(){
-    PokemonHuntScreen(PaddingValues(15.dp))
+    PokemonHuntScreen(PaddingValues(15.dp), onNavigateToDetail = {id -> Unit})
 }

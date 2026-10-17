@@ -1,5 +1,6 @@
 package adel.mendez.pokedex_compose.viewmodel;
 
+import adel.mendez.pokedex_compose.model.data.addPokemon
 import adel.mendez.pokedex_compose.model.data.pokemonList
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -30,13 +31,15 @@ public class PokemonViewModel : ViewModel(){
     var captured by mutableStateOf(true)
 
     fun capturePokemon(){
-        wildPokemon?.let {
+        wildPokemon?.let { pokemon ->
             val isCaptured = (1..2).random()
             if(isCaptured == 1){
-                capturedPokemon = capturedPokemon + it
+                capturedPokemon = capturedPokemon + pokemon
                 gonedPokemon = false
+                addPokemon(pokemon.num)
                 wildPokemon = null
                 captured = true
+
             }else {
                 gonedPokemon= true
                 wildPokemon=null

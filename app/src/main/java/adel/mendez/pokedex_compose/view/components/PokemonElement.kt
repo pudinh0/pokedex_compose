@@ -7,6 +7,7 @@ import adel.mendez.pokedex_compose.utilities.getColorByType
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -28,11 +29,12 @@ import androidx.compose.ui.unit.sp
 
 
 @Composable
-fun PokemonRow(pokemon: Pokemon){
+fun PokemonRow(pokemon: Pokemon, onNavigateToDetail: (id:Int)-> Unit){
     val colors = getColorByType(pokemon.type)
 
     Row(
-        Modifier.fillMaxWidth().padding(10.dp),
+        Modifier.fillMaxWidth().padding(10.dp)
+            .clickable(onClick = { onNavigateToDetail(pokemon.num)}),
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
 
@@ -64,11 +66,12 @@ fun PokemonRow(pokemon: Pokemon){
     }
 
 @Composable
-fun FavoritePokemon(pokemon: Pokemon){
+fun FavoritePokemon(pokemon: Pokemon, onNavigateToDetail: (id:Int)-> Unit){
     val colors = getColorByType(pokemon.type)
 
     Column(
-       modifier = Modifier.padding(vertical = 15.dp),
+       modifier = Modifier.padding(vertical = 15.dp)
+           .clickable(onClick = { onNavigateToDetail(pokemon.num)}),
         verticalArrangement = Arrangement.spacedBy(10.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -120,11 +123,12 @@ fun FavoritePokemon(pokemon: Pokemon){
 }
 
 @Composable
-fun PokemonCell(pokemon: Pokemon){
+fun PokemonCell(pokemon: Pokemon, onNavigateToDetail: (id:Int)-> Unit){
     val colors = getColorByType(pokemon.type)
 
     Column(
         modifier = Modifier
+            .clickable(onClick = { onNavigateToDetail(pokemon.num)})
             .border(
             BorderStroke(
                 width = 5.dp,
@@ -183,6 +187,6 @@ fun PokemonCell(pokemon: Pokemon){
 fun PokemonElementPreview(){
     //PokemonCell(jigglypuff)
     //PokemonRow(jigglypuff)
-    FavoritePokemon(jigglypuff)
+    FavoritePokemon(jigglypuff, onNavigateToDetail = {id -> Unit})
 }
 
