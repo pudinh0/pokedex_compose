@@ -19,7 +19,7 @@
             android:windowSoftInputMode="adjustResize"/>
 
         <activity
-            android:name=".PokedexList"
+            android:name=".view.screens.PokedexList"
             android:exported="true"
             android:label="@string/title_activity_pokedex_list"
             android:theme="@style/Theme.Pokedex_compose"

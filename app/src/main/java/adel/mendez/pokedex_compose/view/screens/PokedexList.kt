@@ -1,5 +1,6 @@
-package adel.mendez.pokedex_compose
+package adel.mendez.pokedex_compose.view.screens
 
+import adel.mendez.pokedex_compose.model.data.Users
 import adel.mendez.pokedex_compose.view.components.MenuPokedex
 import adel.mendez.pokedex_compose.model.data.pokemonList
 import adel.mendez.pokedex_compose.navigation.MyApp
@@ -13,8 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import adel.mendez.pokedex_compose.ui.theme.Pokedex_composeTheme
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.ui.unit.dp
+import adel.mendez.pokedex_compose.viewmodel.UserViewModel
 
 class PokedexList : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,11 +23,9 @@ class PokedexList : ComponentActivity() {
         setContent {
             Pokedex_composeTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                   // MenuPokedex(
-                     //   pokemonList = pokemonList,
-                       // innerPadding = innerPadding
-                   // )
-                    MyApp(innerPadding)
+                    val users = Users(this)
+                    val userViewModel = UserViewModel(users)
+                    MyApp(innerPadding, userViewModel)
                 }
             }
         }
