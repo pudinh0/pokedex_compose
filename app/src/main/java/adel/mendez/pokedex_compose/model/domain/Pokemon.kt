@@ -1,5 +1,8 @@
 package adel.mendez.pokedex_compose.model.domain
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class Pokemon(
     val name : String,
     val num: Int,
