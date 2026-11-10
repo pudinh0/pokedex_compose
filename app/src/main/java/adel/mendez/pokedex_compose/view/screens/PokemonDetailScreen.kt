@@ -5,6 +5,7 @@ import adel.mendez.pokedex_compose.model.data.getPokemonByNumber
 import adel.mendez.pokedex_compose.model.data.pokemonList
 import adel.mendez.pokedex_compose.model.domain.Pokemon
 import adel.mendez.pokedex_compose.utilities.getColorByType
+import adel.mendez.pokedex_compose.viewmodel.PokemonDetailViewModel
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -23,6 +24,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -38,7 +40,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun PokemonDetailScreen(innerPadding: PaddingValues, pokemon: Int, onNavigateToDetail: (Int) -> Unit){
+fun PokemonDetailScreen(innerPadding: PaddingValues, pokemon: Int, onNavigateToDetail: (Int) -> Unit,
+                        pokemonDetailViewModel: PokemonDetailViewModel){
 
     val pokemonActual = getPokemonByNumber(pokemon)
     if (pokemonActual == null) {
@@ -96,6 +99,9 @@ fun PokemonDetailScreen(innerPadding: PaddingValues, pokemon: Int, onNavigateToD
                 .align(Alignment.TopCenter)
                 .offset(x=15.dp,y = 100.dp)
         )
+        Button({pokemonDetailViewModel.saveCompanion(pokemonActual)}) {
+            Text("Seleccionar compañere")
+        }
 
     }
 }
@@ -133,7 +139,7 @@ fun Header(modifier: Modifier = Modifier, pokemon : Pokemon) {
             }
 
             Image(
-                painter = painterResource(id = R.drawable.outline_award_star_24), // 👈 Reemplaza "pokeball_icon" por el nombre exacto de tu archivo en drawable
+                painter = painterResource(id = R.drawable.outline_award_star_24),
                 contentDescription = "Pokeball Vector",
                 modifier = Modifier.size(40.dp)
                     .clickable{

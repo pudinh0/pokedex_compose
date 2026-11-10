@@ -21,3 +21,6 @@ object LoginScreen
 
 @Serializable
 object Logout
+
+@Serializable
+object Profile

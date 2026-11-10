@@ -25,6 +25,7 @@ fun MenuPokedex(pokemonList: List<Pokemon>, onNavigateToDetail: (id:Int) -> Unit
     }
 }
 
+
 @Composable
 fun PokemonGrid(pokemonList: List<Pokemon>, onNavigateToDetail: (id:Int) -> Unit){
     LazyVerticalGrid(

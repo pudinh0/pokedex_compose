@@ -12,6 +12,7 @@ import adel.mendez.pokedex_compose.ui.theme.Purple40
 import adel.mendez.pokedex_compose.view.components.FavoritePokemon
 import adel.mendez.pokedex_compose.view.components.MenuPokedex
 import adel.mendez.pokedex_compose.view.components.PokemonGrid
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -28,6 +29,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
@@ -45,9 +47,15 @@ import androidx.compose.ui.unit.dp
 
 
 @Composable
-fun MenuPokedexScreen(innerPadding: PaddingValues, onNavigateToDetail: (pokemon:Int) -> Unit,
+fun MenuPokedexScreen(innerPadding: PaddingValues,
+                      onNavigateToDetail: (pokemon:Int) -> Unit,
                       onNavigateToHunt:() -> Unit, onLogout:()-> Unit,
-                      showGrid: Boolean = false, onGridChange: (Boolean) -> Unit = {}) {
+                      showGrid: Boolean = false,
+                      onGridChange: (Boolean) -> Unit = {},
+                      // crear ruta para navegar al perfil en navhost y rout nenas
+                      onNavigateToProfile: () -> Unit, onProfile:() -> Unit
+
+) {
     Scaffold(
         modifier = Modifier.fillMaxSize().padding(innerPadding),
         contentWindowInsets = WindowInsets(0, 0, 0, 0),
@@ -67,6 +75,13 @@ fun MenuPokedexScreen(innerPadding: PaddingValues, onNavigateToDetail: (pokemon:
         modifier = Modifier.fillMaxSize().padding(contentPadding).padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
       ) {
+        IconButton(
+            {}
+        ) {
+            Image(painterResource(R.drawable.list),
+                contentDescription = "Profile")
+        }
+
 
         Row(
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -161,6 +176,8 @@ fun MenuPokedexScreenPreview() {
       MenuPokedexScreen(
            innerPadding = PaddingValues(0.dp),
           { },
-          {},{})
+          {},{},
+          {},
+          {})
     }
 }

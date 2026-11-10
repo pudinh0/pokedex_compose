@@ -2,9 +2,11 @@ package adel.mendez.pokedex_compose.model.preferences
 
 import adel.mendez.pokedex_compose.model.domain.Pokemon
 import android.util.JsonToken
+import androidx.core.R
 import androidx.datastore.core.CorruptionException
 import androidx.datastore.core.Serializer
 import kotlinx.serialization.SerializationException
+import kotlinx.serialization.json.Json
 import java.io.InputStream
 import java.io.OutputStream
 
@@ -19,9 +21,8 @@ object PokemonSerializer : Serializer<Pokemon>{
         weight = 0f,
         fav = false,
         ability = "",
-        image = -1
+        image = R.drawable.wtp
     )
-        get() = TODO("Not yet implemented")
 
     override suspend fun readFrom(input: InputStream): Pokemon {
        return try {

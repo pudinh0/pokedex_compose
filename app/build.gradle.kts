@@ -39,9 +39,15 @@ android {
 dependencies {
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.activity.compose)
-    implementation("androidx.datastore:datastore:1.3.0")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
-    implementation("org.jetbrains.kotlinx:kotlinx-serializatrion-json:1.9.0")
+
+    // 1. Cambiar a datastore-preferences (para clave-valor) o conservar si usas Protos pero con su artefacto correcto
+    implementation("androidx.datastore:datastore-preferences:1.1.1") // Versión estable recomendada
+
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1") // Actualizado a una versión estándar compatible con Kotlin 2.0+
+
+    // 2. Corregir el error tipográfico (serializatrion -> serialization)
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.7.3")
+
     implementation(libs.androidx.compose.foundation.layout)
     implementation(libs.androidx.compose.material3)
     implementation(libs.androidx.compose.ui)
