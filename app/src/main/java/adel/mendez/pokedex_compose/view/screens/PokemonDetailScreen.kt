@@ -2,6 +2,8 @@ package adel.mendez.pokedex_compose.view.screens
 
 import adel.mendez.pokedex_compose.R
 import adel.mendez.pokedex_compose.model.domain.Pokemon
+import adel.mendez.pokedex_compose.model.preferences.PokemonSerializer
+import adel.mendez.pokedex_compose.ui.theme.Pokedex_composeTheme
 import adel.mendez.pokedex_compose.utilities.getColorByType
 import adel.mendez.pokedex_compose.viewmodel.PokemonDetailViewModel
 import androidx.compose.foundation.Image
@@ -37,9 +39,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -56,8 +58,6 @@ fun PokemonDetailScreen(
     }
     val pokemonActual = pokemonDetailViewModel.pokemon
     val companion by pokemonDetailViewModel.companion.collectAsStateWithLifecycle()
-    var isFavorite by remember(pokemonActual?.num) { mutableStateOf(pokemonActual?.fav ?: false) }
-    val isCompanion = pokemonActual != null && companion.num == pokemonActual.num
 
     if (pokemonActual == null) {
         Box(
@@ -68,6 +68,32 @@ fun PokemonDetailScreen(
         }
         return
     }
+
+    PokemonDetailContent(
+        innerPadding = innerPadding,
+        pokemon = pokemonActual,
+        companion = companion,
+        previousPokemon = pokemonDetailViewModel.previousPokemon,
+        nextPokemon = pokemonDetailViewModel.nextPokemon,
+        selectionMessage = pokemonDetailViewModel.selectionMessage,
+        onSelectCompanion = { pokemonDetailViewModel.saveCompanion(pokemonActual) },
+        onNavigateToDetail = onNavigateToDetail
+    )
+}
+
+@Composable
+private fun PokemonDetailContent(
+    innerPadding: PaddingValues,
+    pokemon: Pokemon,
+    companion: Pokemon,
+    previousPokemon: Pokemon?,
+    nextPokemon: Pokemon?,
+    selectionMessage: String?,
+    onSelectCompanion: () -> Unit,
+    onNavigateToDetail: (Int) -> Unit
+) {
+    var isFavorite by remember(pokemon.num) { mutableStateOf(pokemon.fav) }
+    val isCompanion = companion.num == pokemon.num
 
     Box(
         modifier = Modifier
@@ -84,21 +110,26 @@ fun PokemonDetailScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .weight(0.35f),
-                pokemonActual
+                pokemon = pokemon,
+                isFavorite = isFavorite,
+                onFavoriteClick = {
+                    isFavorite = !isFavorite
+                    pokemon.fav = isFavorite
+                }
             )
             Caracteristicas(
                 modifier = Modifier
                     .fillMaxWidth()
                     .weight(0.45f),
-                pokemonActual
+                pokemon
             )
             EvolutionSection(
                 modifier = Modifier
                     .fillMaxWidth()
                     .weight(0.20f),
-                pokemonActual,
-                pokemonDetailViewModel.previousPokemon,
-                pokemonDetailViewModel.nextPokemon,
+                pokemon,
+                previousPokemon,
+                nextPokemon,
                 onPokemonClick = { newPokemonNum ->
                     onNavigateToDetail(newPokemonNum)
                 }
@@ -109,8 +140,8 @@ fun PokemonDetailScreen(
 
 
         Image(
-            painter = painterResource(pokemonActual.image),
-            contentDescription = "${pokemonActual.name} flotando",
+            painter = painterResource(pokemon.image),
+            contentDescription = "${pokemon.name} flotando",
             modifier = Modifier
                 .size(250.dp)
                 .align(Alignment.TopCenter)
@@ -123,11 +154,11 @@ fun PokemonDetailScreen(
             if (isCompanion) {
                 Text("⭐ Es tu compañero", fontWeight = FontWeight.Bold, color = Color(0xFF6A1B9A))
             } else {
-                Button(onClick = { pokemonDetailViewModel.saveCompanion(pokemonActual) }) {
+                Button(onClick = onSelectCompanion) {
                     Text("Seleccionar compañero")
                 }
             }
-            pokemonDetailViewModel.selectionMessage?.let { message ->
+            selectionMessage?.let { message ->
                 Text(message, color = Color(0xFF2E7D32), modifier = Modifier.padding(top = 6.dp))
             }
         }
@@ -136,7 +167,12 @@ fun PokemonDetailScreen(
 }
 
 @Composable
-fun Header(modifier: Modifier = Modifier, pokemon : Pokemon) {
+fun Header(
+    modifier: Modifier = Modifier,
+    pokemon: Pokemon,
+    isFavorite: Boolean,
+    onFavoriteClick: () -> Unit
+) {
     Box(
         modifier = modifier
             .background(getColorByType(pokemon.type).first)
@@ -167,10 +203,7 @@ fun Header(modifier: Modifier = Modifier, pokemon : Pokemon) {
                 )
             }
 
-            IconButton(onClick = {
-                isFavorite = !isFavorite
-                pokemon.fav = isFavorite
-            }) {
+            IconButton(onClick = onFavoriteClick) {
                 Icon(
                     painter = painterResource(id = R.drawable.outline_award_star_24),
                     contentDescription = if (isFavorite) "Quitar de favoritos" else "Agregar a favoritos",
@@ -327,5 +360,32 @@ fun EvolutionSection(
         } else {
             Spacer(modifier = Modifier.width(1.dp))
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun PokemonDetailScreenPreview() {
+    Pokedex_composeTheme {
+        PokemonDetailContent(
+            innerPadding = PaddingValues(0.dp),
+            pokemon = Pokemon(
+                name = "Pikachu",
+                num = 25,
+                type = "Electric",
+                description = "Almacena electricidad en las mejillas y la libera cuando se siente amenazado.",
+                height = 0.4f,
+                weight = 6.0f,
+                fav = false,
+                ability = "Static",
+                image = R.drawable.pikachu
+            ),
+            companion = PokemonSerializer.defaultValue,
+            previousPokemon = null,
+            nextPokemon = null,
+            selectionMessage = null,
+            onSelectCompanion = {},
+            onNavigateToDetail = {}
+        )
     }
 }
