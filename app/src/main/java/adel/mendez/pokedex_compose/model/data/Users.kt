@@ -22,10 +22,9 @@ class Users(val context: Context){
 
     fun loginService(mail:String, password:String): User?{
         val user = getUserByMail(mail)
-        user.let {
-            if (user?.password == password)
-                saveUser(user.email, user.name)
-                return user
+        if (user?.password == password) {
+            saveUser(user.email, user.name)
+            return user
         }
         return null
     }

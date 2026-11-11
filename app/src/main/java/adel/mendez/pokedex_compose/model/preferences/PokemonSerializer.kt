@@ -1,8 +1,7 @@
 package adel.mendez.pokedex_compose.model.preferences
 
 import adel.mendez.pokedex_compose.model.domain.Pokemon
-import android.util.JsonToken
-import androidx.core.R
+import adel.mendez.pokedex_compose.R
 import androidx.datastore.core.CorruptionException
 import androidx.datastore.core.Serializer
 import kotlinx.serialization.SerializationException

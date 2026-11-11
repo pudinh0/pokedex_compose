@@ -31,6 +31,8 @@ class UserViewModel(val users: Users,
             initialValue= PokemonSerializer.defaultValue
         )
 
+    fun companionSelectedAtMillis(): Long? = companionDataStore.companionSelectedAtMillis()
+
     fun login(user: String, password: String){
         val user = users.loginService(user, password)
         if (user == null){

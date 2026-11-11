@@ -1,6 +1,8 @@
 package adel.mendez.pokedex_compose.view.screens
 
 import adel.mendez.pokedex_compose.model.data.Users
+import adel.mendez.pokedex_compose.model.data.CompanionDataStore
+import adel.mendez.pokedex_compose.model.data.PokemonRepository
 import adel.mendez.pokedex_compose.view.components.MenuPokedex
 import adel.mendez.pokedex_compose.model.data.pokemonList
 import adel.mendez.pokedex_compose.navigation.MyApp
@@ -15,17 +17,33 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import adel.mendez.pokedex_compose.ui.theme.Pokedex_composeTheme
 import adel.mendez.pokedex_compose.viewmodel.UserViewModel
+import adel.mendez.pokedex_compose.viewmodel.PokemonDetailViewModel
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 
 class PokedexList : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        val users = Users(applicationContext)
+        val companionDataStore = CompanionDataStore(applicationContext)
+        val pokemonRepository = PokemonRepository()
+        val factory = object : ViewModelProvider.Factory {
+            @Suppress("UNCHECKED_CAST")
+            override fun <T : ViewModel> create(modelClass: Class<T>): T = when {
+                modelClass.isAssignableFrom(UserViewModel::class.java) ->
+                    UserViewModel(users, companionDataStore) as T
+                modelClass.isAssignableFrom(PokemonDetailViewModel::class.java) ->
+                    PokemonDetailViewModel(pokemonRepository, companionDataStore) as T
+                else -> throw IllegalArgumentException("ViewModel desconocido: ${modelClass.name}")
+            }
+        }
+        val userViewModel = ViewModelProvider(this, factory)[UserViewModel::class.java]
+        val pokemonDetailViewModel = ViewModelProvider(this, factory)[PokemonDetailViewModel::class.java]
         setContent {
             Pokedex_composeTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    val users = Users(this)
-                    val userViewModel = UserViewModel(users)
-                    MyApp(innerPadding, userViewModel)
+                    MyApp(innerPadding, userViewModel, pokemonDetailViewModel)
                 }
             }
         }

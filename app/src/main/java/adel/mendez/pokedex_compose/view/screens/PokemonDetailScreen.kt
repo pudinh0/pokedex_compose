@@ -1,8 +1,6 @@
 package adel.mendez.pokedex_compose.view.screens
 
 import adel.mendez.pokedex_compose.R
-import adel.mendez.pokedex_compose.model.data.getPokemonByNumber
-import adel.mendez.pokedex_compose.model.data.pokemonList
 import adel.mendez.pokedex_compose.model.domain.Pokemon
 import adel.mendez.pokedex_compose.utilities.getColorByType
 import adel.mendez.pokedex_compose.viewmodel.PokemonDetailViewModel
@@ -25,8 +23,15 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -35,15 +40,25 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 
 @Composable
-fun PokemonDetailScreen(innerPadding: PaddingValues, pokemon: Int, onNavigateToDetail: (Int) -> Unit,
-                        pokemonDetailViewModel: PokemonDetailViewModel){
+fun PokemonDetailScreen(
+    innerPadding: PaddingValues,
+    pokemonNumber: Int,
+    onNavigateToDetail: (Int) -> Unit,
+    pokemonDetailViewModel: PokemonDetailViewModel
+) {
+    LaunchedEffect(pokemonNumber) {
+        pokemonDetailViewModel.loadPokemon(pokemonNumber)
+    }
+    val pokemonActual = pokemonDetailViewModel.pokemon
+    val companion by pokemonDetailViewModel.companion.collectAsStateWithLifecycle()
+    var isFavorite by remember(pokemonActual?.num) { mutableStateOf(pokemonActual?.fav ?: false) }
+    val isCompanion = pokemonActual != null && companion.num == pokemonActual.num
 
-    val pokemonActual = getPokemonByNumber(pokemon)
     if (pokemonActual == null) {
         Box(
             modifier = Modifier.fillMaxSize().padding(innerPadding),
@@ -82,6 +97,8 @@ fun PokemonDetailScreen(innerPadding: PaddingValues, pokemon: Int, onNavigateToD
                     .fillMaxWidth()
                     .weight(0.20f),
                 pokemonActual,
+                pokemonDetailViewModel.previousPokemon,
+                pokemonDetailViewModel.nextPokemon,
                 onPokemonClick = { newPokemonNum ->
                     onNavigateToDetail(newPokemonNum)
                 }
@@ -99,8 +116,20 @@ fun PokemonDetailScreen(innerPadding: PaddingValues, pokemon: Int, onNavigateToD
                 .align(Alignment.TopCenter)
                 .offset(x=15.dp,y = 100.dp)
         )
-        Button({pokemonDetailViewModel.saveCompanion(pokemonActual)}) {
-            Text("Seleccionar compañere")
+        Column(
+            modifier = Modifier.align(Alignment.BottomCenter).padding(bottom = 20.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            if (isCompanion) {
+                Text("⭐ Es tu compañero", fontWeight = FontWeight.Bold, color = Color(0xFF6A1B9A))
+            } else {
+                Button(onClick = { pokemonDetailViewModel.saveCompanion(pokemonActual) }) {
+                    Text("Seleccionar compañero")
+                }
+            }
+            pokemonDetailViewModel.selectionMessage?.let { message ->
+                Text(message, color = Color(0xFF2E7D32), modifier = Modifier.padding(top = 6.dp))
+            }
         }
 
     }
@@ -138,14 +167,17 @@ fun Header(modifier: Modifier = Modifier, pokemon : Pokemon) {
                 )
             }
 
-            Image(
-                painter = painterResource(id = R.drawable.outline_award_star_24),
-                contentDescription = "Pokeball Vector",
-                modifier = Modifier.size(40.dp)
-                    .clickable{
-                        pokemon.fav= !pokemon.fav
-                    }
-            )
+            IconButton(onClick = {
+                isFavorite = !isFavorite
+                pokemon.fav = isFavorite
+            }) {
+                Icon(
+                    painter = painterResource(id = R.drawable.outline_award_star_24),
+                    contentDescription = if (isFavorite) "Quitar de favoritos" else "Agregar a favoritos",
+                    modifier = Modifier.size(40.dp),
+                    tint = if (isFavorite) Color(0xFFFFB300) else getColorByType(pokemon.type).second
+                )
+            }
         }
 
 
@@ -224,12 +256,10 @@ fun StatItem(label: String, value: String) {
 fun EvolutionSection(
     modifier: Modifier = Modifier,
     pokemon: Pokemon,
+    pokemon1: Pokemon?,
+    pokemon2: Pokemon?,
     onPokemonClick: (Int) -> Unit
 ) {
-    val currentIndex = pokemonList.indexOf(pokemon)
-    val pokemon1 = if (currentIndex > 0) pokemonList[currentIndex - 1] else null
-    val pokemon2 = if (currentIndex < pokemonList.size - 1) pokemonList[currentIndex + 1] else null
-
     Row(
         modifier = modifier
             .fillMaxWidth()

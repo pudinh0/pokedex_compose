@@ -70,7 +70,7 @@ fun LoginScreen(innerPaddingValues: PaddingValues, onNavigateToMenu: () -> Unit,
         )
 
         Spacer(modifier = Modifier.size(15.dp))
-        Button(onClick = {onNavigateToMenu()}) {
+        Button(onClick = { viewModel.login(correo, password.text.toString()) }) {
             Text("Iniciar Sesion")
         }
 

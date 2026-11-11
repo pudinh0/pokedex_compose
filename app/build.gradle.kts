@@ -42,6 +42,7 @@ dependencies {
 
     // 1. Cambiar a datastore-preferences (para clave-valor) o conservar si usas Protos pero con su artefacto correcto
     implementation("androidx.datastore:datastore-preferences:1.1.1") // Versión estable recomendada
+    implementation("androidx.datastore:datastore:1.1.1")
 
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1") // Actualizado a una versión estándar compatible con Kotlin 2.0+
 

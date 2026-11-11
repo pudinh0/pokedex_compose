@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.toRoute
 
 @Composable
 fun MyApp(innerPadding: PaddingValues, userViewModel: UserViewModel
@@ -31,17 +32,18 @@ fun MyApp(innerPadding: PaddingValues, userViewModel: UserViewModel
                         launchSingleTop = true
                     }
                 }, showGrid = userViewModel.showPokemonGrid,
-                onGridChange = userViewModel::setPokemonGridPreference
+                onGridChange = userViewModel::setPokemonGridPreference,
+                onNavigateToProfile = { navController.navigate(Profile) }
             )
         }
 
-        composable<PokemonDetail> {
-            val pokemon = it.arguments?.getInt("pokemon") ?: -1
+        composable<PokemonDetail> { entry ->
+            val route = entry.toRoute<PokemonDetail>()
             PokemonDetailScreen(
                 innerPadding,
-                pokemon,
+                route.pokemon,
                 onNavigateToDetail = { id -> navController.navigate(route = PokemonDetail(id)) },
-                pokemonDetailViewModel = TODO()
+                pokemonDetailViewModel = pokemonDetailViewModel
             )
         }
 
@@ -54,7 +56,7 @@ fun MyApp(innerPadding: PaddingValues, userViewModel: UserViewModel
         }
 
         composable<Profile>{
-            ProfileScreen(innerPadding, userViewModel)
+            ProfileScreen(innerPadding, userViewModel, onBack = { navController.popBackStack() })
         }
 
 
