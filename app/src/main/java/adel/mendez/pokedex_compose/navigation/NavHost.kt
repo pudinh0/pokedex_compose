@@ -1,12 +1,14 @@
 package adel.mendez.pokedex_compose.navigation
 
 import adel.mendez.pokedex_compose.view.screens.LoginScreen
+import adel.mendez.pokedex_compose.view.screens.AddPokemonScreen
 import adel.mendez.pokedex_compose.view.screens.MenuPokedexScreen
 import adel.mendez.pokedex_compose.view.screens.PokemonDetailScreen
 import adel.mendez.pokedex_compose.view.screens.PokemonHuntScreen
 import adel.mendez.pokedex_compose.view.screens.ProfileScreen
 import adel.mendez.pokedex_compose.viewmodel.PokemonDetailViewModel
 import adel.mendez.pokedex_compose.viewmodel.UserViewModel
+import adel.mendez.pokedex_compose.viewmodel.AddPokemonViewModel
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
@@ -16,7 +18,7 @@ import androidx.navigation.toRoute
 
 @Composable
 fun MyApp(innerPadding: PaddingValues, userViewModel: UserViewModel
-, pokemonDetailViewModel: PokemonDetailViewModel) {
+, pokemonDetailViewModel: PokemonDetailViewModel, addPokemonViewModel: AddPokemonViewModel) {
     val navController = rememberNavController()
 
     NavHost(navController, startDestination = LoginScreen) {
@@ -33,7 +35,8 @@ fun MyApp(innerPadding: PaddingValues, userViewModel: UserViewModel
                     }
                 }, showGrid = userViewModel.showPokemonGrid,
                 onGridChange = userViewModel::setPokemonGridPreference,
-                onNavigateToProfile = { navController.navigate(Profile) }
+                onNavigateToProfile = { navController.navigate(Profile) },
+                onNavigateToAddPokemon = { navController.navigate(AddPokemon) }
             )
         }
 
@@ -57,6 +60,10 @@ fun MyApp(innerPadding: PaddingValues, userViewModel: UserViewModel
 
         composable<Profile>{
             ProfileScreen(innerPadding, userViewModel, onBack = { navController.popBackStack() })
+        }
+
+        composable<AddPokemon> {
+            AddPokemonScreen(innerPadding, addPokemonViewModel)
         }
 
 

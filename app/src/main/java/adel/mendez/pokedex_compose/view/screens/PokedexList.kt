@@ -3,6 +3,10 @@ package adel.mendez.pokedex_compose.view.screens
 import adel.mendez.pokedex_compose.model.data.Users
 import adel.mendez.pokedex_compose.model.data.CompanionDataStore
 import adel.mendez.pokedex_compose.model.data.PokemonRepository
+import adel.mendez.pokedex_compose.model.data.interfaces.IPokemonRepository
+import adel.mendez.pokedex_compose.model.data.sqlite.DatabaseHelper
+import adel.mendez.pokedex_compose.model.data.sqlite.PokemonDAO
+import adel.mendez.pokedex_compose.model.data.sqlite.PokemonSQLRepository
 import adel.mendez.pokedex_compose.view.components.MenuPokedex
 import adel.mendez.pokedex_compose.model.data.pokemonList
 import adel.mendez.pokedex_compose.navigation.MyApp
@@ -18,6 +22,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import adel.mendez.pokedex_compose.ui.theme.Pokedex_composeTheme
 import adel.mendez.pokedex_compose.viewmodel.UserViewModel
 import adel.mendez.pokedex_compose.viewmodel.PokemonDetailViewModel
+import adel.mendez.pokedex_compose.viewmodel.AddPokemonViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 
@@ -28,6 +33,8 @@ class PokedexList : ComponentActivity() {
         val users = Users(applicationContext)
         val companionDataStore = CompanionDataStore(applicationContext)
         val pokemonRepository = PokemonRepository()
+        val databaseHelper = DatabaseHelper(applicationContext)
+        val sqlPokemonRepository: IPokemonRepository = PokemonSQLRepository(PokemonDAO(databaseHelper))
         val factory = object : ViewModelProvider.Factory {
             @Suppress("UNCHECKED_CAST")
             override fun <T : ViewModel> create(modelClass: Class<T>): T = when {
@@ -35,15 +42,18 @@ class PokedexList : ComponentActivity() {
                     UserViewModel(users, companionDataStore) as T
                 modelClass.isAssignableFrom(PokemonDetailViewModel::class.java) ->
                     PokemonDetailViewModel(pokemonRepository, companionDataStore) as T
+                modelClass.isAssignableFrom(AddPokemonViewModel::class.java) ->
+                    AddPokemonViewModel(sqlPokemonRepository) as T
                 else -> throw IllegalArgumentException("ViewModel desconocido: ${modelClass.name}")
             }
         }
         val userViewModel = ViewModelProvider(this, factory)[UserViewModel::class.java]
         val pokemonDetailViewModel = ViewModelProvider(this, factory)[PokemonDetailViewModel::class.java]
+        val addPokemonViewModel = ViewModelProvider(this, factory)[AddPokemonViewModel::class.java]
         setContent {
             Pokedex_composeTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    MyApp(innerPadding, userViewModel, pokemonDetailViewModel)
+                    MyApp(innerPadding, userViewModel, pokemonDetailViewModel, addPokemonViewModel)
                 }
             }
         }

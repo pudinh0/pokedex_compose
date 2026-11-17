@@ -17,6 +17,9 @@ object PokemonHunt{
 }
 
 @Serializable
+object AddPokemon
+
+@Serializable
 object LoginScreen
 
 @Serializable

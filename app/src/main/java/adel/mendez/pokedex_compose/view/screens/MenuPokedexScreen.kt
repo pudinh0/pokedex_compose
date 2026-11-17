@@ -49,7 +49,8 @@ fun MenuPokedexScreen(innerPadding: PaddingValues,
                       onNavigateToHunt:() -> Unit, onLogout:()-> Unit,
                       showGrid: Boolean = false,
                       onGridChange: (Boolean) -> Unit = {},
-                      onNavigateToProfile: () -> Unit
+                      onNavigateToProfile: () -> Unit,
+                      onNavigateToAddPokemon: () -> Unit = {}
 
 ) {
     Scaffold(
@@ -71,8 +72,13 @@ fun MenuPokedexScreen(innerPadding: PaddingValues,
         modifier = Modifier.fillMaxSize().padding(contentPadding).padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp)
       ) {
-        OutlinedButton(onClick = onNavigateToProfile) {
-            Text("Mi perfil")
+        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            OutlinedButton(onClick = onNavigateToProfile) {
+                Text("Mi perfil")
+            }
+            OutlinedButton(onClick = onNavigateToAddPokemon) {
+                Text("Agregar Pokémon")
+            }
         }
 
 
@@ -171,6 +177,7 @@ fun MenuPokedexScreenPreview() {
           onNavigateToDetail = {},
           onNavigateToHunt = {},
           onLogout = {},
-          onNavigateToProfile = {})
+          onNavigateToProfile = {},
+          onNavigateToAddPokemon = {})
     }
 }
