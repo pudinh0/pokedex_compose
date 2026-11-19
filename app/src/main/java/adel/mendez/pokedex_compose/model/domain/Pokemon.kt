@@ -12,5 +12,6 @@ data class Pokemon(
     val weight: Float,
     var fav: Boolean,
     val ability: String,
-    val image: Int
+    val image: Int,
+    var imageSQL: ByteArray? = null
 )

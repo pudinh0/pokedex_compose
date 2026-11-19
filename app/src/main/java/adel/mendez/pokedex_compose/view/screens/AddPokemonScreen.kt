@@ -55,6 +55,9 @@ fun AddPokemonScreen(innerPadding: PaddingValues, viewModel: AddPokemonViewModel
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(15.dp)
     ) {
+
+        //falta agregar los demas datos de lpokemon
+        //
         Text("Agregar Pokemon")
         Spacer(Modifier.size(20.dp))
         TextField(state = number,
